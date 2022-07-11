@@ -41,30 +41,41 @@ class LPTFetcher:
         for submission in self.reddit.subreddit(self.sub).top(time_filter=self.time_span, limit=self.limit):
             text = submission.title
             print(submission.score)
+            
             author = submission.author
             print(submission.url)
+            
             # Open image
             img = Image.open(fp='background2.jpg', mode='r')
+            
             # Load custom font
             font = ImageFont.truetype(font='AllerDisplay.ttf', size=52)
+            
             # Create DrawText object
             draw = ImageDraw.Draw(im=img)
+            
             # Calculate the average length of a single character of our font.
             # Note: this takes into account the specific font and font size.
             avg_char_width = sum(font.getsize(
                 char)[0] for char in ascii_letters) / len(ascii_letters)
+            
             # Translate this average length into a character count
             max_char_count = int(img.size[0] * .618 / avg_char_width)
+            
             # Create a wrapped text object using scaled character count
             text = textwrap.fill(text=f"{text}", width=max_char_count)
+            
             # Add text to the image
             draw.text(xy=(img.size[0]/2, img.size[1] / 2),
                       text=text, font=font, fill='white', anchor='mm')
+            
             # save the image
             filename = f"{x}.jpg"
             img.save(filename)
             x = x + 1
+            
         return
+    
 
     def tweet_lpt_image(self, tweet_text="Life Pro Tip of the Day.", del_file=True):
         
@@ -104,7 +115,6 @@ class LPTFetcher:
 
 
 r = LPTFetcher(sub="lifeprotips", time_span="all", limit=365)
-
 r.tweet_lpt_image(
     tweet_text="Make your life easier by using #LifeProTips #LifeProTipofTheDay #lpt", del_file=True)
 
