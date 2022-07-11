@@ -1,1 +1,0 @@
-# wfpict_telebot

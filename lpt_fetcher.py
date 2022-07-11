@@ -9,6 +9,7 @@ import praw
 import tweepy
 from PIL import Image, ImageDraw, ImageFont
 
+
 import config
 
 client = tweepy.Client(config.bearer_token, config.consumer_key,
