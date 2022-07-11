@@ -83,7 +83,7 @@ class LPTFetcher:
         for file in glob.glob("*.jpg"):
             file_list.append(file)
             
-        ## ! Check to make sure there are still files left to tweet
+        # ! Check to make sure there are still files left to tweet
         if len(file_list) > 0:
 
             random_image = random.choice(file_list)
