@@ -21,7 +21,6 @@ auth.set_access_token(config.access_token, config.access_token_secret)
 
 api = tweepy.API(auth)
 
-
 class LPTFetcher:
     
     def __init__(self, sub="lifeprotips", time_span="week", limit=10):
