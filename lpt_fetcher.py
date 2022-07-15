@@ -40,10 +40,10 @@ class LPTFetcher:
         x = 1 
         for submission in self.reddit.subreddit(self.sub).top(time_filter=self.time_span, limit=self.limit):
             text = submission.title
-            print(submission.score)
+
             
             author = submission.author
-            print(submission.url)
+
             
             # Open image
             img = Image.open(fp='background2.jpg', mode='r')
@@ -92,18 +92,13 @@ class LPTFetcher:
             media = api.media_upload(random_image)
             tweet_info = api.update_status(status=tweet_text, media_ids=[media.media_id])
             date_posted = datetime.datetime.now()
+            lpt_tweet_file = open("lpt_tweet_file.txt", "a")
+            lpt_tweet_file.write(f"{date_posted}, {tweet_info.id}\n")
+            
             
             if del_file:
                 
                 os.remove(random_image)
-                
-            else:
-                
-                # create a file with the tweet ids and the date posted so we can
-                # follow the users that liked the tweet at a later time
-                
-                lpt_tweet_file = open("lpt_tweet_file.txt", "a")
-                lpt_tweet_file.write(f"{date_posted}, {tweet_info.id}\n")
 
             tweeted = True
 
@@ -112,7 +107,6 @@ class LPTFetcher:
             tweeted = False
 
         return tweeted
-
 
 r = LPTFetcher(sub="lifeprotips", time_span="all", limit=365)
 r.tweet_lpt_image(
